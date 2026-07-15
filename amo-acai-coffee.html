@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amo Açaí Coffee — Heladería de açaí en La Florida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --acai: #3D1230;
+    --acai-deep: #2A0C21;
+    --berry: #D81E5B;
+    --berry-soft: #F4A6C1;
+    --coconut: #FBF3E7;
+    --coconut-dim: #F2E5D0;
+    --granola: #C08552;
+    --leaf: #6B8E4E;
+    --ink: #2A1420;
+    --radius: 26px;
+    --radius-sm: 14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--coconut);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 28px;}
+  ::selection{background:var(--berry); color:var(--coconut);}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,243,231,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(42,20,32,0.08);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:1120px; margin:0 auto;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Fraunces', serif; font-weight:700; font-size:1.25rem;
+    color:var(--acai);
+  }
+  .logo .dot{
+    width:14px; height:14px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--berry-soft), var(--berry) 60%, var(--acai) 100%);
+  }
+  .nav-links{display:flex; gap:32px; font-size:0.95rem; font-weight:500;}
+  .nav-links a{opacity:0.75; transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--acai); color:var(--coconut);
+    padding:11px 22px; border-radius:999px; font-weight:600; font-size:0.9rem;
+    transition:transform .2s, background .2s;
+  }
+  .nav-cta:hover{background:var(--berry); transform:translateY(-1px);}
+  .burger{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .burger span{display:block; width:24px; height:2px; background:var(--acai); margin:5px 0;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:64px 0 40px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--coconut-dim); border:1px solid rgba(42,20,32,0.12);
+    padding:7px 16px; border-radius:999px; font-size:0.82rem; font-weight:600;
+    color:var(--acai); margin-bottom:22px;
+  }
+  .eyebrow .stars{color:var(--granola); letter-spacing:1px;}
+  .hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    line-height:1.04;
+    color:var(--acai-deep);
+    margin-bottom:20px;
+  }
+  .hero h1 em{
+    font-style:italic; color:var(--berry);
+  }
+  .hero p.lead{
+    font-size:1.12rem; max-width:480px; opacity:0.82; margin-bottom:32px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px;}
+  .btn{
+    padding:14px 28px; border-radius:999px; font-weight:600; font-size:0.95rem;
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer; border:none;
+    transition:transform .2s, box-shadow .2s, background .2s;
+  }
+  .btn-primary{background:var(--berry); color:var(--coconut); box-shadow:0 10px 24px -8px rgba(216,30,91,0.55);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 14px 28px -8px rgba(216,30,91,0.6);}
+  .btn-ghost{background:transparent; color:var(--acai-deep); border:1.5px solid rgba(42,20,32,0.25);}
+  .btn-ghost:hover{border-color:var(--acai-deep); background:rgba(42,20,32,0.04);}
+  .hero-meta{display:flex; gap:28px; flex-wrap:wrap;}
+  .hero-meta div{font-size:0.85rem;}
+  .hero-meta strong{display:block; font-family:'Fraunces',serif; font-size:1.3rem; color:var(--acai-deep);}
+
+  /* Signature: layered acai bowl SVG, built from real bowl composition (base, fruit, granola, coconut) */
+  .bowl-wrap{position:relative; display:flex; align-items:center; justify-content:center;}
+  .bowl-wrap svg{width:100%; max-width:440px; filter:drop-shadow(0 30px 45px rgba(42,12,33,0.28));}
+  .ring{animation:spin 60s linear infinite; transform-origin:210px 210px;}
+  @keyframes spin{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+  .topping{animation:float 5s ease-in-out infinite;}
+  .topping:nth-child(2n){animation-delay:-1.5s;}
+  .topping:nth-child(3n){animation-delay:-3s;}
+  @keyframes float{0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);}}
+
+  /* ---------- MARQUEE STRIP ---------- */
+  .strip{
+    background:var(--acai-deep); color:var(--coconut);
+    padding:14px 0; overflow:hidden; white-space:nowrap;
+  }
+  .strip-inner{display:inline-flex; gap:48px; animation:marquee 26s linear infinite;}
+  .strip-inner span{font-family:'Fraunces',serif; font-style:italic; font-size:1.05rem; opacity:0.9;}
+  @keyframes marquee{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:88px 0;}
+  .section-head{max-width:600px; margin-bottom:52px;}
+  .section-head .tag{
+    color:var(--berry); font-weight:700; font-size:0.8rem; text-transform:uppercase;
+    letter-spacing:0.12em; margin-bottom:12px; display:block;
+  }
+  .section-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem); color:var(--acai-deep);}
+  .section-head p{margin-top:14px; opacity:0.75; font-size:1.02rem;}
+
+  /* ---------- VALUE PROPS ---------- */
+  .props{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .prop-card{
+    background:var(--coconut-dim); border-radius:var(--radius);
+    padding:34px 28px; border:1px solid rgba(42,20,32,0.06);
+    transition:transform .25s, box-shadow .25s;
+  }
+  .prop-card:hover{transform:translateY(-6px); box-shadow:0 18px 34px -16px rgba(42,20,32,0.25);}
+  .prop-icon{width:48px; height:48px; margin-bottom:18px;}
+  .prop-card h3{font-size:1.15rem; margin-bottom:8px; color:var(--acai-deep);}
+  .prop-card p{font-size:0.92rem; opacity:0.72;}
+
+  /* ---------- MENU ---------- */
+  .menu-section{background:var(--acai-deep); color:var(--coconut);}
+  .menu-section .section-head .tag{color:var(--berry-soft);}
+  .menu-section .section-head h2{color:var(--coconut);}
+  .menu-section .section-head p{color:var(--coconut); opacity:0.65;}
+  .tabs{display:flex; gap:10px; margin-bottom:36px; flex-wrap:wrap;}
+  .tab{
+    padding:10px 20px; border-radius:999px; border:1px solid rgba(251,243,231,0.25);
+    background:transparent; color:var(--coconut); font-weight:600; font-size:0.88rem;
+    cursor:pointer; transition:background .2s, color .2s;
+  }
+  .tab.active, .tab:hover{background:var(--berry); border-color:var(--berry); color:var(--coconut);}
+  .menu-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  .menu-panel{display:none;}
+  .menu-panel.active{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  .menu-item{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:20px 0; border-bottom:1px solid rgba(251,243,231,0.14);
+  }
+  .menu-item .name{font-family:'Fraunces',serif; font-weight:600; font-size:1.08rem; margin-bottom:4px;}
+  .menu-item .desc{font-size:0.85rem; opacity:0.6; max-width:280px;}
+  .menu-item .price{font-family:'Fraunces',serif; font-weight:600; font-size:1.08rem; color:var(--berry-soft); white-space:nowrap;}
+  .menu-item.popular .name::after{
+    content:"Más pedido"; font-family:'Work Sans',sans-serif; font-size:0.65rem; font-weight:700;
+    background:var(--berry); color:var(--coconut); padding:3px 9px; border-radius:999px;
+    margin-left:10px; vertical-align:middle; letter-spacing:0.03em;
+  }
+  .menu-note{margin-top:28px; font-size:0.82rem; opacity:0.55; font-style:italic;}
+
+  /* ---------- REVIEWS ---------- */
+  .rating-summary{
+    display:flex; align-items:center; gap:24px; margin-bottom:44px; flex-wrap:wrap;
+  }
+  .rating-big{font-family:'Fraunces',serif; font-size:3.2rem; color:var(--acai-deep); line-height:1;}
+  .rating-stars{color:var(--granola); font-size:1.3rem; letter-spacing:2px;}
+  .reviews-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .review-card{
+    background:var(--coconut); border:1px solid rgba(42,20,32,0.08);
+    border-radius:var(--radius-sm); padding:26px; display:flex; flex-direction:column; gap:14px;
+  }
+  .review-stars{color:var(--granola); font-size:0.95rem; letter-spacing:1px;}
+  .review-card p{font-size:0.93rem; opacity:0.82; flex-grow:1;}
+  .reviewer{display:flex; align-items:center; gap:10px;}
+  .reviewer .avatar{
+    width:36px; height:36px; border-radius:50%;
+    background:linear-gradient(135deg, var(--berry), var(--acai));
+    display:flex; align-items:center; justify-content:center;
+    color:var(--coconut); font-weight:700; font-size:0.85rem; font-family:'Fraunces',serif;
+  }
+  .reviewer .who{font-weight:600; font-size:0.88rem;}
+  .reviewer .meta{font-size:0.76rem; opacity:0.55;}
+
+  /* ---------- LOCATION ---------- */
+  .location-section{background:var(--coconut-dim);}
+  .loc-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:0; border-radius:var(--radius); overflow:hidden; box-shadow:0 24px 50px -24px rgba(42,20,32,0.3);}
+  .loc-info{background:var(--acai); color:var(--coconut); padding:44px 40px; display:flex; flex-direction:column; justify-content:center; gap:22px;}
+  .loc-info h3{font-size:1.5rem;}
+  .loc-row{display:flex; gap:14px; align-items:flex-start;}
+  .loc-row .ico{width:20px; height:20px; flex-shrink:0; margin-top:2px; opacity:0.85;}
+  .loc-row .label{font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; opacity:0.6; margin-bottom:3px;}
+  .loc-row .val{font-size:0.98rem; font-weight:500;}
+  .status-pill{
+    display:inline-flex; align-items:center; gap:8px; background:rgba(251,243,231,0.12);
+    padding:8px 16px; border-radius:999px; font-size:0.85rem; width:fit-content;
+  }
+  .status-dot{width:8px; height:8px; border-radius:50%; background:#e0554a;}
+  .loc-map iframe{width:100%; height:100%; min-height:420px; border:0; display:block;}
+
+  /* ---------- CTA ---------- */
+  .cta-section{text-align:center; padding-top:100px; padding-bottom:100px;}
+  .cta-section h2{font-size:clamp(2rem,4vw,3rem); color:var(--acai-deep); max-width:680px; margin:0 auto 26px;}
+  .cta-section .btn-primary{padding:17px 38px; font-size:1.02rem;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--acai-deep); color:var(--coconut); padding:56px 0 28px;}
+  .footer-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px; margin-bottom:40px;}
+  footer .logo{color:var(--coconut);}
+  footer .fcol h4{font-size:0.82rem; text-transform:uppercase; letter-spacing:0.08em; opacity:0.55; margin-bottom:14px;}
+  footer .fcol a, footer .fcol p{display:block; font-size:0.9rem; opacity:0.8; margin-bottom:9px;}
+  .footer-bottom{border-top:1px solid rgba(251,243,231,0.12); padding-top:22px; font-size:0.8rem; opacity:0.5; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .burger{display:block;}
+    .hero-grid{grid-template-columns:1fr;}
+    .bowl-wrap{order:-1; margin-bottom:12px;}
+    .bowl-wrap svg{max-width:300px;}
+    .props{grid-template-columns:1fr;}
+    .menu-panel.active{grid-template-columns:1fr;}
+    .reviews-grid{grid-template-columns:1fr;}
+    .loc-grid{grid-template-columns:1fr;}
+    .loc-map iframe{min-height:320px;}
+  }
+  :focus-visible{outline:2.5px solid var(--berry); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <a href="#top" class="logo"><span class="dot"></span>Amo Açaí Coffee</a>
+    <nav class="nav-links">
+      <a href="#menu">Menú</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a href="#pedir" class="nav-cta">Pedir en línea</a>
+    <button class="burger" aria-label="Abrir menú" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display==='flex'?'none':'flex'; document.querySelector('.nav-links').style.cssText+='flex-direction:column;position:absolute;top:64px;right:28px;background:var(--coconut);padding:20px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.15);'">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow"><span class="stars">★★★★★</span> 4.8 · 90 opiniones en Google</div>
+        <h1>Açaí cremoso de <em>verdad</em>, servido en La Florida.</h1>
+        <p class="lead">Bowls generosos, toppings frescos sin cargo extra y ese sabor a açaí real que la gente viene a buscar. A pasos de Lo Cañas con Walker Martínez.</p>
+        <div class="hero-actions">
+          <a href="#pedir" class="btn btn-primary">Pedir en línea →</a>
+          <a href="#menu" class="btn btn-ghost">Ver el menú</a>
+        </div>
+        <div class="hero-meta">
+          <div><strong>9:00</strong>Abrimos desde las</div>
+          <div><strong>0</strong>Costo extra por toppings</div>
+          <div><strong>90+</strong>Reseñas verificadas</div>
+        </div>
+      </div>
+
+      <div class="bowl-wrap">
+        <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="210" cy="210" r="200" fill="var(--coconut-dim)"/>
+          <circle cx="210" cy="210" r="170" fill="var(--acai)"/>
+          <circle cx="210" cy="210" r="150" fill="var(--acai-deep)"/>
+          <g class="ring">
+            <circle class="topping" cx="210" cy="90" r="16" fill="#F2E6C9"/>
+            <circle class="topping" cx="310" cy="150" r="11" fill="#D81E5B"/>
+            <circle class="topping" cx="325" cy="260" r="13" fill="#F2E6C9"/>
+            <circle class="topping" cx="255" cy="335" r="10" fill="#6B8E4E"/>
+            <circle class="topping" cx="150" cy="335" r="13" fill="#D81E5B"/>
+            <circle class="topping" cx="95" cy="255" r="11" fill="#F2E6C9"/>
+            <circle class="topping" cx="100" cy="150" r="14" fill="#C08552"/>
+            <circle class="topping" cx="165" cy="95" r="9" fill="#D81E5B"/>
+          </g>
+          <circle cx="210" cy="210" r="92" fill="#4C1638"/>
+          <path class="topping" d="M170 190 Q210 150 250 190 Q230 220 210 205 Q190 220 170 190Z" fill="#F2E6C9" opacity="0.9"/>
+          <circle class="topping" cx="185" cy="235" r="7" fill="#D81E5B"/>
+          <circle class="topping" cx="235" cy="235" r="7" fill="#D81E5B"/>
+          <circle class="topping" cx="210" cy="250" r="6" fill="#6B8E4E"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="strip-inner">
+      <span>Açaí 100% real</span><span>·</span><span>Toppings ilimitados</span><span>·</span><span>Heladería en La Florida</span><span>·</span><span>Pedidos para llevar</span><span>·</span>
+      <span>Açaí 100% real</span><span>·</span><span>Toppings ilimitados</span><span>·</span><span>Heladería en La Florida</span><span>·</span><span>Pedidos para llevar</span><span>·</span>
+    </div>
+  </div>
+
+  <!-- VALUE PROPS -->
+  <section id="nosotros">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag">Por qué elegirnos</span>
+        <h2>Lo que dicen quienes ya nos probaron</h2>
+        <p>No lo decimos nosotros: son los mismos comentarios que dejan nuestros clientes en Google.</p>
+      </div>
+      <div class="props">
+        <div class="prop-card">
+          <svg class="prop-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" fill="var(--berry-soft)"/><path d="M16 24c0-6 4-10 8-10s8 4 8 10-4 12-8 12-8-6-8-12Z" fill="var(--berry)"/></svg>
+          <h3>Cremoso, no aguado</h3>
+          <p>Textura espesa y sabor a açaí concentrado — el detalle que más se nota comparado con otros locales.</p>
+        </div>
+        <div class="prop-card">
+          <svg class="prop-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" fill="#DCE8CB"/><circle cx="18" cy="20" r="5" fill="var(--leaf)"/><circle cx="30" cy="20" r="5" fill="var(--granola)"/><circle cx="24" cy="30" r="5" fill="var(--berry)"/></svg>
+          <h3>Toppings sin costo extra</h3>
+          <p>Frutilla, granola, coco y más — arma tu bowl como quieras, sin sorpresas en el precio final.</p>
+        </div>
+        <div class="prop-card">
+          <svg class="prop-icon" viewBox="0 0 48 48" fill="none"><rect x="10" y="14" width="28" height="22" rx="6" fill="#F2E6C9"/><rect x="16" y="8" width="16" height="10" rx="4" fill="var(--acai)"/></svg>
+          <h3>Local limpio y acogedor</h3>
+          <p>Espacio ordenado, atención cercana y buena onda — ideal para venir solo o acompañado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu" class="menu-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag">Nuestra carta</span>
+        <h2>Menú</h2>
+        <p>Selección de bowls, jugos y bebidas. Precios referenciales — edítalos por los reales de tu carta.</p>
+      </div>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="bowls">Açaí Bowls</button>
+        <button class="tab" data-tab="jugos">Jugos y Bebidas</button>
+        <button class="tab" data-tab="extras">Toppings y Extras</button>
+      </div>
+
+      <div class="menu-panel active" id="bowls">
+        <div class="menu-item popular">
+          <div><div class="name">Açaí GO</div><div class="desc">Nuestro bowl más pedido: base de açaí, granola casera, frutilla y plátano.</div></div>
+          <div class="price">$4.500</div>
+        </div>
+        <div class="menu-item">
+          <div><div class="name">Açaí Clásico</div><div class="desc">Base de açaí con granola, miel y frutas de estación.</div></div>
+          <div class="price">$4.200</div>
+        </div>
+        <div class="menu-item">
+          <div><div class="name">Açaí Tropical</div><div class="desc">Mango, kiwi, coco rallado y semillas de chía.</div></div>
+          <div class="price">$4.900</div>
+        </div>
+        <div class="menu-item">
+          <div><div class="name">Açaí Proteico</div><div class="desc">Con proteína, mantequilla de maní y plátano.</div></div>
+          <div class="price">$5.300</div>
+        </div>
+      </div>
+
+      <div class="menu-panel" id="jugos">
+        <div class="menu-item"><div><div class="name">Jugo natural de frutilla</div><div class="desc">Sin azúcar añadida, 100% fruta.</div></div><div class="price">$2.500</div></div>
+        <div class="menu-item"><div><div class="name">Limonada de coco</div><div class="desc">Refrescante, con pulpa de coco.</div></div><div class="price">$2.800</div></div>
+        <div class="menu-item"><div><div class="name">Café helado</div><div class="desc">Espresso doble sobre hielo.</div></div><div class="price">$2.300</div></div>
+        <div class="menu-item"><div><div class="name">Smoothie de mango</div><div class="desc">Mango, yogurt y un toque de miel.</div></div><div class="price">$3.100</div></div>
+      </div>
+
+      <div class="menu-panel" id="extras">
+        <div class="menu-item"><div><div class="name">Granola casera</div><div class="desc">Tostada en el local, sin costo extra en cualquier bowl.</div></div><div class="price">Incluido</div></div>
+        <div class="menu-item"><div><div class="name">Frutilla fresca</div><div class="desc">Cortada al momento.</div></div><div class="price">Incluido</div></div>
+        <div class="menu-item"><div><div class="name">Mantequilla de maní</div><div class="desc">Topping premium.</div></div><div class="price">+$800</div></div>
+        <div class="menu-item"><div><div class="name">Nutella</div><div class="desc">Topping premium.</div></div><div class="price">+$800</div></div>
+      </div>
+
+      <p class="menu-note">* Precios y disponibilidad referenciales — reemplázalos por los valores reales de tu carta antes de publicar.</p>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="opiniones">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag">Reseñas de Google</span>
+        <h2>Lo que dice la gente</h2>
+      </div>
+      <div class="rating-summary">
+        <div class="rating-big">4.8</div>
+        <div>
+          <div class="rating-stars">★★★★★</div>
+          <div style="font-size:0.85rem; opacity:0.65; margin-top:4px;">Basado en 90 opiniones en Google Maps</div>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>"Delicioso açaí, gran variedad de toppings sin precio extra. Abundante y cremoso. Se siente el sabor al açaí. El local es muy bonito y agradable. Recomendado!"</p>
+          <div class="reviewer">
+            <div class="avatar">PC</div>
+            <div><div class="who">Pamela Cerda</div><div class="meta">Local Guide · hace 5 meses</div></div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>"Excelente calidad de açaí, uno de los mejores que he probado. El lugar muy limpio y ordenado, recomendadísimo!"</p>
+          <div class="reviewer">
+            <div class="avatar">PG</div>
+            <div><div class="who">Pía Valentina González</div><div class="meta">hace 3 meses</div></div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>"Excelente atención. Los toppings son ricos y se agradece que la frutilla no se cobre adicional."</p>
+          <div class="reviewer">
+            <div class="avatar">DY</div>
+            <div><div class="who">Dominique Yunis</div><div class="meta">Local Guide · hace 5 meses</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section id="ubicacion" class="location-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag">Encuéntranos</span>
+        <h2>Visítanos en La Florida</h2>
+      </div>
+      <div class="loc-grid">
+        <div class="loc-info">
+          <h3>Amo Açaí Coffee</h3>
+          <div class="status-pill"><span class="status-dot"></span> Cerrado ahora · Abre 9:00 a.m.</div>
+          <div class="loc-row">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <div><div class="label">Dirección</div><div class="val">Lo Cañas 3517, La Florida, Región Metropolitana</div></div>
+          </div>
+          <div class="loc-row">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            <div><div class="label">Horario</div><div class="val">Lunes a domingo · desde las 9:00 a.m.</div></div>
+          </div>
+          <div class="loc-row">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg>
+            <div><div class="label">Pedidos y contacto</div><div class="val">Botón "Pedir en línea" o WhatsApp</div></div>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Amo+Acai+Coffee+Lo+Ca%C3%B1as+3517+La+Florida" class="btn btn-primary" style="width:fit-content;" target="_blank" rel="noopener">Cómo llegar →</a>
+        </div>
+        <div class="loc-map">
+          <iframe
+            src="https://www.google.com/maps?q=Lo+Ca%C3%B1as+3517,+La+Florida,+Regi%C3%B3n+Metropolitana&output=embed"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación Amo Açaí Coffee">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="pedir" class="cta-section">
+    <div class="wrap">
+      <h2>Tu bowl te está esperando.</h2>
+      <a href="#" class="btn btn-primary">Pedir en línea →</a>
+    </div>
+  </section>
+</main>
+
+<footer id="contacto">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="#top" class="logo"><span class="dot"></span>Amo Açaí Coffee</a>
+        <p style="margin-top:14px; max-width:240px; opacity:0.65; font-size:0.88rem;">Heladería de açaí en La Florida. Cremoso, fresco y con toppings sin costo extra.</p>
+      </div>
+      <div class="fcol">
+        <h4>Explorar</h4>
+        <a href="#menu">Menú</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#ubicacion">Ubicación</a>
+      </div>
+      <div class="fcol">
+        <h4>Contacto</h4>
+        <p>Lo Cañas 3517, La Florida</p>
+        <a href="#">WhatsApp</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Amo Açaí Coffee. Todos los derechos reservados.</span>
+      <span>Hecho con cariño en La Florida, Santiago</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Menu tabs
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.menu-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
